@@ -42,8 +42,6 @@ public class Agents {
 		em.close();
 		factory.close();
 		return jsonString;
-		
-				
 	
 	}
 	//http://localhost:8080/JSPDay7/rest/agents/getallagents	
@@ -68,6 +66,7 @@ public class Agents {
 		factory.close();
 		return jsonString;
 	}
+	
 	//http://localhost:8080/JSPDay7/rest/agents/postAgent	
 	@POST
 	@Path("postagent")

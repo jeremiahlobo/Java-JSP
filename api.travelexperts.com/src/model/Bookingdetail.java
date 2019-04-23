@@ -12,7 +12,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="bookingdetails")
-@NamedQuery(name="Bookingdetail.findAll", query="SELECT b FROM Bookingdetail b")
+@NamedQuery(name="Bookingdetail.findAll", query="SELECT bd FROM Bookingdetail bd")
 public class Bookingdetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 

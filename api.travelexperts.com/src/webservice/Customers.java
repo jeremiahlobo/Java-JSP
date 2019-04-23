@@ -4,6 +4,7 @@ import java.util.List;
 import javax.json.JsonObject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.ws.rs.*;
@@ -40,11 +41,10 @@ public class Customers {
 		String jsonString = gson.toJson(customer, type);
 		em.close();
 		factory.close();
-		return jsonString;
-		
-				
+		return jsonString;		
 	
 	}
+	
 	//http://localhost:8080/api.travelexperts.com/rest/customer/getallcustomers	
 	@GET //still a get operation
 	@Path("getallcustomers") //no longer requires path param
@@ -69,12 +69,12 @@ public class Customers {
 	}
 	//http://localhost:8080/api.travelexperts.com/rest/customers/postcustomer	
 	@POST
-	@Path("postcustomer")
+	@Path("editProfile")
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces(MediaType.TEXT_PLAIN)
 	public String postCustomer(String jsonString)
 	{
-		System.out.print(jsonString);
+		
 		Gson gson = new Gson();
 		Type type = new TypeToken<Customer>() {}.getType();
 		Customer customer = gson.fromJson(jsonString, type);
@@ -87,4 +87,37 @@ public class Customers {
 		return "customer updated"; 
 	
 	}
+	
+	
+	//http://localhost:8080/api.travelexperts.com/rest/customers/postcustomer	
+		@POST
+		@Path("login")
+		@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+		@Produces(MediaType.APPLICATION_JSON)
+		public Boolean loginCustomer(@FormParam("username") String username,@FormParam("password") String password)
+		{
+			Boolean Validated = false;
+			EntityManagerFactory factory = Persistence.createEntityManagerFactory("api.travelexperts.com");
+			EntityManager em = factory.createEntityManager();
+			String select = "SELECT c FROM Customer c WHERE c.username=:username and c.password=:password";
+
+			Query query = em.createQuery(select);
+			query.setParameter("username", username);
+			query.setParameter("password", password);
+			
+			
+			try 
+			{
+				Customer c = (Customer) query.getSingleResult();
+				Validated = true;
+				
+			}catch(NoResultException ne) {
+				Validated = false;
+				
+			}
+			
+		    return Validated;
+		
+		}
+	
 }
