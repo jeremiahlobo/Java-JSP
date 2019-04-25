@@ -19,7 +19,7 @@ import model.Bookingdetail;
 //specify path fragment for jersey service to find this class 1
 @Path("customersbookings")
 
-// http://localhost:8080/api.travelexperts.com/rest/customers/getcustomer/5
+// http://localhost:8080/api.travelexperts.com/rest/customersbookings/info/105
 
 
 //this /rest was referenced in the web.xml 

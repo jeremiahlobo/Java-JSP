@@ -67,6 +67,7 @@ public class Customers {
 		factory.close();
 		return jsonString;
 	}
+	
 	//http://localhost:8080/api.travelexperts.com/rest/customers/postcustomer	
 	@POST
 	@Path("editProfile")
@@ -96,10 +97,13 @@ public class Customers {
 		@Produces(MediaType.APPLICATION_JSON)
 		public Boolean loginCustomer(@FormParam("username") String username,@FormParam("password") String password)
 		{
+			System.out.println(username);
+			System.out.println(password);
+			
 			Boolean Validated = false;
 			EntityManagerFactory factory = Persistence.createEntityManagerFactory("api.travelexperts.com");
 			EntityManager em = factory.createEntityManager();
-			String select = "SELECT c FROM Customer c WHERE c.username=:username and c.password=:password";
+			String select = "SELECT c FROM Customer c WHERE c.username=:username AND c.password=:password";
 
 			Query query = em.createQuery(select);
 			query.setParameter("username", username);
@@ -108,9 +112,15 @@ public class Customers {
 			
 			try 
 			{
-				Customer c = (Customer) query.getSingleResult();
-				Validated = true;
-				
+				Customer cust = (Customer) query.getSingleResult();
+				if (cust.equals(null)) 
+				{
+					System.out.println(cust);
+					Validated = false;
+				}else {
+					System.out.println(cust);
+					Validated = true;
+				}
 			}catch(NoResultException ne) {
 				Validated = false;
 				

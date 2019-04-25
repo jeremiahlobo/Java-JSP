@@ -28,6 +28,7 @@ public class Packages {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getPackage(@PathParam("packageid") int packageid)
 	{
+		
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("api.travelexperts.com"); //using entitymanager factory and call factory with persistence, set up connection here in persistence xml
 				EntityManager em = factory.createEntityManager(); //create an entity manager, call it em
 		//create the query 4
@@ -50,7 +51,7 @@ public class Packages {
 	@Produces(MediaType.APPLICATION_JSON) //produces a json string
 	public String getAllPackages() //changed to get all agents 
 	{
-		
+		System.out.println("working");
 	//there will be a few minor changes here 
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("api.travelexperts.com"); //using entitymanager factory and call factory with persistence, set up connection here in persistence xml
 		EntityManager em = factory.createEntityManager(); //create an entity manager, call it em
